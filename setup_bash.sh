@@ -85,33 +85,40 @@ else
     echo "Bash prompt beautification configuration already exists, skipping..."
 fi
 
-# extract command with alias x
+echo "Adding extract and its alias x for one-key extraction..."
+
+# Check if extract function already exists
+if ! grep -q "extract ()" ~/.bashrc; then
+    echo "Adding extract function..."
+    cat >> ~/.bashrc <<'EOF'
+
 extract () {
     if [ -z "$1" ]; then
         echo "Usage: extract <path/file>"
         return 1
     fi
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2)   tar xjf $1     ;;
-            *.tar.gz)    tar xzf $1     ;;
-            *.bz2)       bunzip2 $1     ;;
-            *.rar)       unrar x $1     ;;
-            *.gz)        gunzip $1      ;;
-            *.tar)       tar xf $1      ;;
-            *.tbz2)      tar xjf $1     ;;
-            *.tgz)       tar xzf $1     ;;
-            *.zip)       unzip $1       ;;
-            *.Z)         uncompress $1  ;;
-            *.7z)        7z x $1        ;;
-            *)           echo "'$1' cannot be extracted via extract()" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
+    case $1 in
+        *.tar.bz2) tar xjf $1 ;;
+        *.tar.gz)  tar xzf $1 ;;
+        *.bz2)     bunzip2 $1 ;;
+        *.rar)     unrar x $1 ;;
+        *.gz)      gunzip $1 ;;
+        *.tar)     tar xf $1 ;;
+        *.tbz2)    tar xjf $1 ;;
+        *.tgz)     tar xzf $1 ;;
+        *.zip)     unzip $1 ;;
+        *.Z)       uncompress $1 ;;
+        *.7z)      7z x $1 ;;
+        *)         echo "Don't know how to extract '$1'..." ;;
+    esac
 }
 
 alias x='extract'
+EOF
+    echo "extract function and alias x added."
+else
+    echo "extract function and alias x already exists, skipping..."
+fi
 
 
 echo "Please run 'source ~/.bashrc' to apply changes or re-login."
