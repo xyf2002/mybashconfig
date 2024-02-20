@@ -36,6 +36,42 @@ else
     echo "Alias for 'vpnuoe' already exists, skipping..."
 fi
 
+# Git related aliases
+if ! grep -q "alias gaa=" ~/.bashrc; then
+    echo "alias gaa='git add --all'" >> ~/.bashrc
+    echo "Alias for 'gaa' -> 'git add --all' added."
+else
+    echo "Alias for 'gaa' already exists, skipping..."
+fi
+
+if ! grep -q "alias gcmsg=" ~/.bashrc; then
+    echo "alias gcmsg='git commit -m'" >> ~/.bashrc
+    echo "Alias for 'gcmsg' -> 'git commit -m' added."
+else
+    echo "Alias for 'gcmsg' already exists, skipping..."
+fi
+
+if ! grep -q "alias ga=" ~/.bashrc; then
+    echo "alias ga='git add'" >> ~/.bashrc
+    echo "Alias for 'ga' -> 'git add' added."
+else
+    echo "Alias for 'ga' already exists, skipping..."
+fi
+
+if ! grep -q "alias gst=" ~/.bashrc; then
+    echo "alias gst='git status'" >> ~/.bashrc
+    echo "Alias for 'gst' -> 'git status' added."
+else
+    echo "Alias for 'gst' already exists, skipping..."
+fi
+
+if ! grep -q "alias gp=" ~/.bashrc; then
+    echo "alias gp='git push'" >> ~/.bashrc
+    echo "Alias for 'gp' -> 'git push' added."
+else
+    echo "Alias for 'gp' already exists, skipping..."
+fi
+
 echo "Adding bash prompt beautification configuration..."
 
 # Backup current .bashrc file
@@ -50,4 +86,3 @@ else
 fi
 
 echo "Please run 'source ~/.bashrc' to apply changes or re-login."
-
