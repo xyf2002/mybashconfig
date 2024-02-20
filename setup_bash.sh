@@ -44,11 +44,11 @@ else
     echo "Alias for 'gaa' already exists, skipping..."
 fi
 
-if ! grep -q "alias gcmsg=" ~/.bashrc; then
-    echo "alias gcmsg='git commit -m'" >> ~/.bashrc
-    echo "Alias for 'gcmsg' -> 'git commit -m' added."
+if ! grep -q "alias gcm=" ~/.bashrc; then
+    echo "alias gcm='git commit -m'" >> ~/.bashrc
+    echo "Alias for 'gcm' -> 'git commit -m' added."
 else
-    echo "Alias for 'gcmsg' already exists, skipping..."
+    echo "Alias for 'gcm' already exists, skipping..."
 fi
 
 if ! grep -q "alias ga=" ~/.bashrc; then
