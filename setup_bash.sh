@@ -38,6 +38,16 @@ else
 	echo "Alias for r already exists, skipping..."
 fi
 
+# Check if an alias for 'R' already exists in ~/.bashrc
+if ! grep -q "alias R=" ~/.bashrc; then
+    # If it doesn't exist, add an alias for 'R' to use 'ranger'
+    echo "alias R='ranger'" >> ~/.bashrc
+    echo "Alias for R -> ranger added."
+else
+    # If the alias already exists, skip adding it
+    echo "Alias for R already exists, skipping..."
+fi
+
 # Check if an alias for 'CD' already exists in ~/.bashrc
 if ! grep -q "alias CD=" ~/.bashrc; then
 	# If it doesn't exist, add an alias for 'CD' to use 'cd'
