@@ -12,6 +12,15 @@ else
 	echo "Alias for vi already exists, skipping..."
 fi
 
+# Add alias for 'nv' if it doesn't exist
+Add alias for 'nv' if it doesn't exist
+if ! grep -q "alias nv=" ~/.bashrc; then
+	echo "alias nv='nvim'" >>~/.bashrc
+	echo "Alias for nv -> nvim added."
+else
+	echo "Alias for nv already exists, skipping..."
+fi
+
 # Add alias for 'vim' if it doesn't exist
 if ! grep -q "alias vim=" ~/.bashrc; then
 	echo "alias vim='nvim'" >>~/.bashrc
@@ -40,12 +49,12 @@ fi
 
 # Check if an alias for 'R' already exists in ~/.bashrc
 if ! grep -q "alias R=" ~/.bashrc; then
-    # If it doesn't exist, add an alias for 'R' to use 'ranger'
-    echo "alias R='ranger'" >> ~/.bashrc
-    echo "Alias for R -> ranger added."
+	# If it doesn't exist, add an alias for 'R' to use 'ranger'
+	echo "alias R='ranger'" >>~/.bashrc
+	echo "Alias for R -> ranger added."
 else
-    # If the alias already exists, skip adding it
-    echo "Alias for R already exists, skipping..."
+	# If the alias already exists, skip adding it
+	echo "Alias for R already exists, skipping..."
 fi
 
 # Check if an alias for 'CD' already exists in ~/.bashrc
@@ -108,12 +117,13 @@ echo "Adding bash prompt beautification configuration..."
 cp ~/.bashrc ~/.bashrc.backup
 
 # Add custom PS1 prompt if it doesn't exist
-if ! grep -q "PS1='\e\[0;31m\]" ~/.bashrc; then
-	echo "export PS1='\e[0;31m\]\342\224\214\342\224\200\e[1;32m\][\e[1m\]\e[3;35m\]\u\e[0m\]@\e[1;33m\]\H\e[1;32m\]][\e[1;34m\]\t\e[1;32m\]] \e[1;30m\]\e[3;30m\]\$PWD\e[0m\]\n\e[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \e[0m\]\$ '" >>~/.bashrc
-	echo "Bash prompt beautification configuration added."
-else
-	echo "Bash prompt beautification configuration already exists, skipping..."
-fi
+#if ! grep -q "PS1='\e\[0;31m\]" ~/.bashrc; then
+#	echo "export PS1='\e[0;31m\]\342\224\214\342\224\200\e[1;32m\][\e[1m\]\e[3;35m\]\u\e[0m\]@\e[1;33m\]\H\e[1;32m\]][\e[1;34m\]\t\e[1;32m\]] \e[1;30m\]\e[3;30m\]\$PWD\e[0m\]\n\e[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \e[0m\]\$ '" >>~/.bashrc
+
+#	echo "Bash prompt beautification configuration added."
+#else
+#	echo "Bash prompt beautification configuration already exists, skipping..."
+#fi
 
 echo "Adding extract and its alias x for one-key extraction..."
 
