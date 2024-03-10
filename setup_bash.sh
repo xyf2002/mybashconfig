@@ -161,4 +161,3 @@ else
 fi
 
 echo "Please run 'source ~/.bashrc' to apply changes or re-login."
-export EDITOR ='nvim'
