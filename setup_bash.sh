@@ -118,7 +118,7 @@ cp ~/.bashrc ~/.bashrc.backup
 
 # Add custom PS1 prompt if it doesn't exist
 #if ! grep -q "PS1='\e\[0;31m\]" ~/.bashrc; then
-#	echo "export PS1='\e[0;31m\]\342\224\214\342\224\200\e[1;32m\][\e[1m\]\e[3;35m\]\u\e[0m\]@\e[1;33m\]\H\e[1;32m\]][\e[1;34m\]\t\e[1;32m\]] \e[1;30m\]\e[3;30m\]\$PWD\e[0m\]\n\e[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \e[0m\]\$ '" >>~/.bashrc
+#	echo "export PS1='\e[0;31m\]\342\224\214\342\224\200\e[1;32m\][\e[1m\]\e[3;35m\]\u\e[0m\]@\e[1;33m\]\H\e[1;32m\]][\e[1;34m\]\t\e[1;32m\]] \e[1;30m\]\e[3;30m\]\w\e[0m\]\n\e[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \e[0m\]\$ '" >>~/.bashrc
 
 #	echo "Bash prompt beautification configuration added."
 #else
