@@ -2,8 +2,8 @@
 
 # This script adds aliases and a custom PS1 prompt to your ~/.bashrc for a better bash experience.
 
+BASHRC="$HOME/.bashrc"
 echo "Adding aliases..."
-
 # Add alias for 'vi' if it doesn't exist
 if ! grep -q "alias vi=" ~/.bashrc; then
 	echo "alias vi='nvim'" >>~/.bashrc
@@ -158,6 +158,17 @@ EOF
 	echo "extract function and alias x added."
 else
 	echo "extract function and alias x already exists, skipping..."
+fi
+
+echo "beautify fzf"
+ZF_CONFIG="export FZF_DEFAULT_OPTS=\"--height 100% --layout=reverse --info inline --border --preview 'cat {}' --preview-window left:50%:noborder --color 'fg:#bbccdd,fg+:#ddeeff,bg:#334455,preview-bg:#223344,border:#778899'\""
+# Check if the FZF configuration already exists in .bashrc
+if grep -q "FZF_DEFAULT_OPTS" "$BASHRC"; then
+	echo "FZF configuration already exists in .bashrc."
+else
+	# If not found, append the configuration to .bashrc
+	echo "$FZF_CONFIG" >>"$BASHRC"
+	echo "FZF configuration added to .bashrc."
 fi
 
 echo "Please run 'source ~/.bashrc' to apply changes or re-login."
