@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to the Neovim keymaps configuration file
-CONFIG_FILE="$HOME/.config/nvim/lua/keymaps.lua"
+CONFIG_FILE="$HOME/.config/nvim/lua/config/keymaps.lua"
 
 # Check if the directory exists, and if not, create it
 if [ ! -d "$(dirname "$CONFIG_FILE")" ]; then
