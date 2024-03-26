@@ -4,29 +4,13 @@
 
 BASHRC="$HOME/.bashrc"
 echo "Adding aliases..."
-# Add alias for 'vi' if it doesn't exist
-if ! grep -q "alias vi=" ~/.bashrc; then
-	echo "alias vi='nvim'" >>~/.bashrc
-	echo "Alias for vi -> nvim added."
-else
-	echo "Alias for vi already exists, skipping..."
-fi
 
 # Add alias for 'nv' if it doesn't exist
-Add alias for 'nv' if it doesn't exist
 if ! grep -q "alias nv=" ~/.bashrc; then
 	echo "alias nv='nvim'" >>~/.bashrc
 	echo "Alias for nv -> nvim added."
 else
 	echo "Alias for nv already exists, skipping..."
-fi
-
-# Add alias for 'vim' if it doesn't exist
-if ! grep -q "alias vim=" ~/.bashrc; then
-	echo "alias vim='nvim'" >>~/.bashrc
-	echo "Alias for vim -> nvim added."
-else
-	echo "Alias for vim already exists, skipping..."
 fi
 
 # Add alias for 'LS' if it doesn't exist
