@@ -1,83 +1,63 @@
 #!/usr/bin/env fish
 
-# This script adds aliases and other configurations to your fish shell.
-
 set -l CONFIG_FILE "$HOME/.config/fish/config.fish"
 
-# Add alias only if it doesn't exist
-function add_alias
-    set -l alias_cmd "$argv[1]"
-    set -l alias_text "$argv[2]"
-
-    if not grep -q "$alias_cmd" "$CONFIG_FILE"
-        echo "Adding alias: $alias_cmd -> $alias_text"
-        echo "$alias_cmd" >>"$CONFIG_FILE"
+function ensure_content
+    set -l content "$argv[1]"
+    if not grep -q "$content" "$CONFIG_FILE"
+        echo "Adding content: $content"
+        echo "$content" >>"$CONFIG_FILE"
     else
-        echo "Alias $alias_cmd already exists, skipping..."
+        echo "Content already exists: $content"
     end
 end
 
-# Define aliases
-add_alias "alias nv='nvim'" "nv -> nvim"
-add_alias "alias LS='ls'" "LS -> ls"
-add_alias "alias r='ranger'" "r -> ranger"
-add_alias "alias R='ranger'" "R -> ranger"
-add_alias "alias CD='cd'" "CD -> cd"
-add_alias "alias vpnuoe='sudo openfortivpn remote.net.ed.ac.uk:8443 -u s2223191'" "vpnuoe -> openfortivpn"
+# Add all aliases and configurations
+ensure_content "alias nv='nvim'"
+ensure_content "alias LS='ls'"
+ensure_content "alias r='ranger'"
+ensure_content "alias R='ranger'"
+ensure_content "alias CD='cd'"
+ensure_content "alias vpnuoe='sudo openfortivpn remote.net.ed.ac.uk:8443 -u s2223191'"
 
 # Git-related aliases
-add_alias "alias gaa='git add --all'" "gaa -> git add --all"
-add_alias "alias gcm='git commit -m'" "gcm -> git commit -m"
-add_alias "alias ga='git add'" "ga -> git add"
-add_alias "alias gst='git status'" "gst -> git status"
-add_alias "alias gp='git push'" "gp -> git push"
+ensure_content "alias gaa='git add --all'"
+ensure_content "alias gcm='git commit -m'"
+ensure_content "alias ga='git add'"
+ensure_content "alias gst='git status'"
+ensure_content "alias gp='git push'"
 
-# Extract function and its alias
+# Add extract function and alias
 if not grep -q "function extract" "$CONFIG_FILE"
-    echo "Adding extract function and its alias..."
     echo "function extract" >>"$CONFIG_FILE"
-    echo "  if test -z \"\$argv\"" >>"$CONFIG_FILE"
-    echo "      echo 'Usage: extract <path/file>'" >>"$CONFIG_FILE"
-    echo "      return 1" >>"$CONFIG_FILE"
-    echo "  end" >>"$CONFIG_FILE"
-    echo "  switch \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.tar.bz2'" >>"$CONFIG_FILE"
-    echo "          tar xjf \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.tar.gz'" >>"$CONFIG_FILE"
-    echo "          tar xzf \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.bz2'" >>"$CONFIG_FILE"
-    echo "          bunzip2 \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.rar'" >>"$CONFIG_FILE"
-    echo "          unrar x \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.gz'" >>"$CONFIG_FILE"
-    echo "          gunzip \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.tar'" >>"$CONFIG_FILE"
-    echo "          tar xf \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.tbz2'" >>"$CONFIG_FILE"
-    echo "          tar xjf \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.tgz'" >>"$CONFIG_FILE"
-    echo "          tar xzf \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.zip'" >>"$CONFIG_FILE"
-    echo "          unzip \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.Z'" >>"$CONFIG_FILE"
-    echo "          uncompress \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*.7z'" >>"$CONFIG_FILE"
-    echo "          7z x \$argv[1]" >>"$CONFIG_FILE"
-    echo "      case '*'" >>"$CONFIG_FILE"
-    echo "          echo 'Don't know how to extract '\$argv[1]'" >>"$CONFIG_FILE"
-    echo "  end" >>"$CONFIG_FILE"
-    echo end >>"$CONFIG_FILE"
+    cat >>"$CONFIG_FILE" << EOF
+    extract () {
+        if test -z "$argv[1]"; then
+            echo "Usage: extract <path/file>"
+            return 1
+        end
+        switch "$argv[1]"
+            case '*.tar.bz2' tar xjf "$argv[1]"
+            case '*.tar.gz' tar xzf "$argv[1]"
+            case '*.bz2' bunzip2 "$argv[1]"
+            case '*.rar' unrar x "$argv[1]"
+            case '*.gz' gunzip "$argv[1]"
+            case '*.tar' tar xf "$argv[1]"
+            case '*.tbz2' tar xjf "$argv[1]"
+            case '*.tgz' tar xzf "$argv[1]"
+            case '*.zip' unzip "$argv[1]"
+            case '*.Z' uncompress "$argv[1]"
+            case '*.7z' 7z x "$argv[1]"
+            default echo "Don't know how to extract $argv[1]"
+        end
+    }
+    EOF
     echo "alias x='extract'" >>"$CONFIG_FILE"
 end
 
 # FZF configuration
 set -l FZF_CONFIG "set -x FZF_DEFAULT_OPTS \"--height 100% --layout=reverse --info inline --border --preview 'cat {}' --preview-window left:50%:noborder --color 'fg:#bbccdd,fg+:#ddeeff,bg:#334455,preview-bg:#223344,border:#778899'\""
 
-if not grep -q FZF_DEFAULT_OPTS "$CONFIG_FILE"
-    echo "Adding FZF configuration..."
-    echo "$FZF_CONFIG" >>"$CONFIG_FILE"
-else
-    echo "FZF configuration already exists, skipping..."
-end
+ensure_content "$FZF_CONFIG"
 
 echo "Configurations added. Please restart your shell or run 'source $CONFIG_FILE' to apply changes."
