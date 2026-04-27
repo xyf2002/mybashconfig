@@ -17,6 +17,13 @@ command -v opencode &> /dev/null || { log "Installing opencode...";
 }
 log "opencode: $(opencode --version 2>&1 | head -1)"
 
+command -v nvim &> /dev/null || { log "Installing nvim...";
+    curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
+    sudo tar xzf nvim-linux64.tar.gz -C /opt
+    sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
+}
+log "nvim: $(nvim --version | head -1)"
+
 command -v docker-compose &> /dev/null || { log "Installing docker-compose...";
     sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
